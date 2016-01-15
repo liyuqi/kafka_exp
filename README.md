@@ -50,14 +50,14 @@ $ jps #> kafka ?
 * 查看 topic:kafkatest
 
 `kafka-topics.sh --list --zookeeper localhost:2181 kafkatest`
-
 * 描述 topic:kafkatest
+
 `kafka-topics.sh --describe --zookeeper localhost:2181 --topic kafkatest`
-
 * 建立 rs topic
-`kafka-topics.sh --create --zookeeper localhost:2181 -replication-factor 3 --partitions 1 --topic rskafka`
 
+`kafka-topics.sh --create --zookeeper localhost:2181 -replication-factor 3 --partitions 1 --topic rskafka`
 * 描述 rs topic
+
 `kafka-topics.sh --describe --zookeeper localhost:2181 --topic rskafka`
 
 >Topic:replicatedkafkatest
@@ -88,7 +88,7 @@ ISR | in-sync replica的node(server)清單，kafka cluster中 replica nodes的su
 
 param   參數說明             |description        |sample
 --- | --- | ---
---broker-list               |zookeeper servers  |hostname:port
+*--broker-list               |zookeeper servers  |hostname:port
 --topic                     |topic 名稱          |kafkatest
 --sync                      |指定傳送方式(同步)
 --compression-codec         |壓縮方式            |none,default:gzip,snappy,lz4

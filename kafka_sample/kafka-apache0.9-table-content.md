@@ -82,4 +82,4 @@
 
 kafka-producer-perf-test.sh --broker-list=localhost:9092 --messages 10000000 --topic test --threads 10 --message-size 1000 --batch-size 200 --compression-codec 1
 
-bin/kafka-producer-perf-test.sh --broker-list=localhost:9092 --messages 10000000 --topic test --threads 10 --message-size 1000 --batch-size 200 --compression-codec 1
+kafka-producer-perf-test.sh --broker-list=localhost:9092 --messages 10000000 --topic test --threads 10 --message-size 1000 --batch-size 200 --compression-codec 1
