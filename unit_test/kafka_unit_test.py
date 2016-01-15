@@ -27,7 +27,7 @@ print("consumer created")
 with open("test_log", "w") as test_log:
     cursor = 0
     for messate in consumer:
-    	print("mark")
+        print("mark")
         if cursor > 10:
             break
         test_log.write("%s:%d:%d: key=%s value=%s\n" % [message.topic, message.partition,
