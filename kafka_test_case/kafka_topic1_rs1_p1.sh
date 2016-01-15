@@ -1,64 +1,31 @@
 
 # start kafka server
-kafka-server-start.sh ../config/server.properties
+$ kafka-server-start.sh ../config/server.properties
 
 # topic
-kafka-topics.sh --create --zookeeper localhost:2181 -replication-factor 1 --partitions 1 --topic kafkatest
+$ kafka-topics.sh --create --zookeeper localhost:2181 -replication-factor 1 --partitions 1 --topic kafkatest
 
 # view topic
-kafka-topics.sh --describe --zookeeper localhost:2181 --topic kafkatest
-kafka-topics.sh --describe --zookeeper 172.28.128.22:2181 --topic kafkatest
-kafka-topics.sh --list --zookeeper localhost:2181
-kafka-topics.sh --list --zookeeper 172.28.128.22:2181
+$ kafka-topics.sh --describe --zookeeper localhost:2181 --topic kafkatest
+$ kafka-topics.sh --list --zookeeper localhost:2181
 
 # produce
-kafka-console-producer.sh --broker-list localhost:9092 --topic kafkatest
-kafka-console-producer.sh --broker-list 172.28.128.22:9092 --topic kafkatest
+$ kafka-console-producer.sh --broker-list localhost:9092 --topic kafkatest
 
 # consume
-kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatest
-kafka-console-consumer.sh --zookeeper 172.28.128.22:2181 --topic kafkatest
-
-kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatest --from-beginning
-kafka-console-consumer.sh --zookeeper 172.28.128.22:2181 --topic kafkatest --from-beginning
-
-
-##   C[2016-01-14 17:33:49,067] WARN Fetching topic metadata with correlation id 80 for topics [Set(kafkatest)] from broker [id:0,host:BT2016Realtime01,port:9092] failed (kafka.client.ClientUtils$)
-##   java.nio.channels.ClosedChannelException
-##           at kafka.network.BlockingChannel.send(BlockingChannel.scala:100)
-##           at kafka.producer.SyncProducer.liftedTree1$1(SyncProducer.scala:73)
-##           at kafka.producer.SyncProducer.kafka$producer$SyncProducer$$doSend(SyncProducer.scala:72)
-##           at kafka.producer.SyncProducer.send(SyncProducer.scala:113)
-##           at kafka.client.ClientUtils$.fetchTopicMetadata(ClientUtils.scala:58)
-##           at kafka.client.ClientUtils$.fetchTopicMetadata(ClientUtils.scala:93)
-##           at kafka.consumer.ConsumerFetcherManager$LeaderFinderThread.doWork(ConsumerFetcherManager.scala:66)
-##           at kafka.utils.ShutdownableThread.run(ShutdownableThread.scala:60)
-##   Consumed 0 messages
-
-##  [2016-01-14 18:08:57,317] WARN Fetching topic metadata with correlation id 21 for topics [Set(kafkatest)] from broker [id:0,host:BT2016Realtime01,port:9092] failed (kafka.client.ClientUtils$)
-##   java.nio.channels.ClosedChannelException
-##           at kafka.network.BlockingChannel.send(BlockingChannel.scala:100)
-##           at kafka.producer.SyncProducer.liftedTree1$1(SyncProducer.scala:73)
-##           at kafka.producer.SyncProducer.kafka$producer$SyncProducer$$doSend(SyncProducer.scala:72)
-##           at kafka.producer.SyncProducer.send(SyncProducer.scala:113)
-##           at kafka.client.ClientUtils$.fetchTopicMetadata(ClientUtils.scala:58)
-##           at kafka.client.ClientUtils$.fetchTopicMetadata(ClientUtils.scala:93)
-##           at kafka.consumer.ConsumerFetcherManager$LeaderFinderThread.doWork(ConsumerFetcherManager.scala:66)
-##           at kafka.utils.ShutdownableThread.run(ShutdownableThread.scala:60)
-##   ^CConsumed 0 messages
-
+$ kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatest
+$ kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatest --from-beginning
+$ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic kafkatest --new-consumer --consumer.config consumer.properties
 
 
 # check consumer offset
-kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --zkconnect localhost:2181 --group test-consumer-group
-
-
+$ kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --zkconnect localhost:2181 --group test-consumer-group
 
 
 
 
 # monitor with kafka-manager
-sudo ./kafka-manager \
+java8 $ sudo ./kafka-manager \
 -Dconfig.file=../conf/application.conf \
 -Dhttp.port=9001 \
 -java-home /usr/lib/java/jdk1.8.0_66/
@@ -95,6 +62,6 @@ sudo ./kafka-manager \
 ## [error] k.m.j.KafkaJMX$ - Failed to connect to service:jmx:rmi:///jndi/rmi://dipvm71:-1/jmxrmi
 
 # monitor with jconsole (JMX)
-JMX_PORT=10101	bin/kafka-server-start.sh	config/server.properties
-JMX_PORT=10102	bin/kafka-console-producer.sh	--broker-list	localhost:9092	--topic	kafkatest
-JMX_PORT=10103	bin/kafka-console-producer.sh	--broker-list	localhost:9092	--topic	kafkatest
+$ JMX_PORT=10101	bin/kafka-server-start.sh	config/server.properties
+$ JMX_PORT=10102	bin/kafka-console-producer.sh	--broker-list	localhost:9092	--topic	kafkatest
+$ JMX_PORT=10103	bin/kafka-console-producer.sh	--broker-list	localhost:9092	--topic	kafkatest

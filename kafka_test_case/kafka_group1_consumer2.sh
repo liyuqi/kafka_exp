@@ -61,9 +61,9 @@ $ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic kafkatest 
 $ kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --zkconnect localhost:2181 --group test-consumer-group
 
 # monitor with kafka-manager
-$ sudo ./kafka-manager \
--Dconfig.file=../conf/application.conf \
--Dhttp.port=9001 \
+$ sudo ./kafka-manager
+-Dconfig.file=../conf/application.conf
+-Dhttp.port=9001
 -java-home /usr/lib/java/jdk1.8.0_66/
 
 
