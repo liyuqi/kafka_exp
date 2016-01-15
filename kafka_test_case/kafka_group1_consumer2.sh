@@ -22,6 +22,7 @@ $ python kafka_exp/simple.py  # keep produce message : 20160115 02:54:43 test me
 $ kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatest
 $ kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatest
 
+## default consumer
 $ kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatest --from-beginning
 $ kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatest --from-beginning
 20160115 02:53:57 test message 1
@@ -32,6 +33,7 @@ $ kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatest --from-
 20160115 03:10:30 test message 199
 20160115 03:10:35 test message 200
 
+## g1c1 consume
 $ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic kafkatest --new-consumer --consumer.config kafka_exp/kafka-properties/consumer-g1-c1.properties
 [2016-01-15 03:09:49,959] WARN The configuration consumer.id = 1 was supplied but isn't a known config. (org.apache.kafka.clients.consumer.ConsumerConfig)
 [2016-01-15 03:09:49,960] WARN The configuration zookeeper.connect = 127.0.0.1:2181 was supplied but isn't a known config. (org.apache.kafka.clients.consumer.ConsumerConfig)
@@ -43,6 +45,7 @@ $ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic kafkatest 
 20160115 03:10:35 test message 200
 ^CProcessed a total of 6 messages
 
+## g1c2 consume
 $ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic kafkatest --new-consumer --consumer.config kafka_exp/kafka-properties/consumer-g1-c2.properties
 [2016-01-15 03:09:58,031] WARN The configuration consumer.id = 2 was supplied but isn't a known config. (org.apache.kafka.clients.consumer.ConsumerConfig)
 [2016-01-15 03:09:58,032] WARN The configuration zookeeper.connect = 127.0.0.1:2181 was supplied but isn't a known config. (org.apache.kafka.clients.consumer.ConsumerConfig)
