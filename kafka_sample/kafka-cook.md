@@ -167,11 +167,12 @@ jconsole
 #### 8.2.1 啟動kafka-manager
 
 ```bash
-java8 $ sudo ./kafka-manager \
--Dconfig.file=../conf/application.conf \
--Dhttp.port=9001 \
+java8 $ sudo ./kafka-manager -Dconfig.file=../conf/application.conf -Dhttp.port=9001 &
 -java-home /usr/lib/java/jdk1.8.0_66/
 ```
+記得CentOS 防火牆允許port 
+
+```firewall-cmd --zone=dmz --add-port=9001/tcp --permanent```
 
 #### 8.2.2 開啟 broker 上的 JMX (查看流量 metrics)
 
