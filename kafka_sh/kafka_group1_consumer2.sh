@@ -4,10 +4,10 @@
 # diff consumer 1,2
 
 # start kafka server
-kafka-server-start.sh ../config/server.properties
+$ kafka-server-start.sh ../config/server.properties
 
 # topic
-kafka-topics.sh --create --zookeeper localhost:2181 -replication-factor 1 --partitions 1 --topic kafkatest
+$ kafka-topics.sh --create --zookeeper localhost:2181 -replication-factor 1 --partitions 1 --topic kafkatest
 
 # view topic
 $ kafka-topics.sh --describe --zookeeper localhost:2181 --topic kafkatest
