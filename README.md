@@ -110,7 +110,7 @@ param   參數說明p81          |description    |sample
 --max-messages              |               |default:無限大
 --skip-message-on-error     |               |default:直接skip
 
-### 1.5 params
+#### 1.4.1 params
 
 properties | default value | description
 --- | --- | ---

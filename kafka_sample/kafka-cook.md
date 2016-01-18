@@ -16,25 +16,6 @@ $ source source petrel_env/bin/activate # 啟動python虛擬環境
 $  sh petrel_exp2/run.sh  # 執行腳本
 ```
 
-#### 0.2 Kafka test
-
-#### 0.3 env
-    .jmx script
-    Ref [https://blazemeter.com/blog/building-jms-testing-plan-apache-jmeter]
-    Ref [http://www.technix.in/load-testing-apache-kafka-using-kafkameter/]
-    Ref [http://liveramp.com/engineering/kafka-0-8-producer-performance-2/]
-
-#### 0.4 params
-    broker
-    partition
-    producer
-    consumer
-
-### 0.5 exam
-$ jps #> kafka ?
-
------
-
 ## 1.initialize kafka
     replica 相當於 rs
     partition 相當於 shard
@@ -50,14 +31,14 @@ $ jps #> kafka ?
 * 查看 topic:kafkatest
 
 `kafka-topics.sh --list --zookeeper localhost:2181 kafkatest`
-
 * 描述 topic:kafkatest
+
 `kafka-topics.sh --describe --zookeeper localhost:2181 --topic kafkatest`
-
 * 建立 rs topic
-`kafka-topics.sh --create --zookeeper localhost:2181 -replication-factor 3 --partitions 1 --topic rskafka`
 
+`kafka-topics.sh --create --zookeeper localhost:2181 -replication-factor 3 --partitions 1 --topic rskafka`
 * 描述 rs topic
+
 `kafka-topics.sh --describe --zookeeper localhost:2181 --topic rskafka`
 
 >Topic:replicatedkafkatest
@@ -153,6 +134,7 @@ jconsole
    -Dcom.sun.management.jmxremote.authenticate=false
     service:jmx:remoting-jmx://172.28.128.22:9999
 ```
+
 ### 8.2 kafka-manager
 
 * ref [https://github.com/yahoo/kafka-manager]
@@ -172,6 +154,7 @@ java8 $ sudo ./kafka-manager -Dconfig.file=../conf/application.conf -Dhttp.port=
 ```
 記得CentOS 防火牆允許port 
 
+ref [http://www.centoscn.com/CentOS/help/2015/0208/4667.html]
 ```firewall-cmd --zone=dmz --add-port=9001/tcp --permanent```
 
 #### 8.2.2 開啟 broker 上的 JMX (查看流量 metrics)
