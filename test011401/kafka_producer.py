@@ -8,7 +8,7 @@ from datetime import date,datetime
 client = KafkaClient(hosts="172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092")
 
 print(client.topics)
-topic = client.topics['cep_storm']
+topic = client.topics['kafkatest']
 
 
 # t0 = time.time()
