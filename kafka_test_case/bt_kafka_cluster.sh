@@ -42,15 +42,17 @@ $ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic kafkatest 
 
 # perftest
 kafka-producer-perf-test.sh --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092
+kafka-producer-perf-test.sh --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 --messages 10000000 --threads 1 --message-size 300 -compression-codec 0 --topic ktest
 kafka-producer-perf-test.sh --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 --messages 50000000 --threads 8 --message-size 100 --batch-size 100 --compression-codec 0 --topic perf11
 > kafka_exp/kafka_test_case/perf11-pd-5ww-012101.csv
-kafka-consumer-perf-test.sh --zookeeper 172.28.128.22:2181,172.28.128.23:2181,172.28.128.24:2181 --messages 100000 --threads 1 --topic cep_storm
+kafka-consumer-perf-test.sh --zookeeper 172.28.128.22:2181,172.28.128.23:2181,172.28.128.24:2181 --messages 100000 --threads 1 --topic ktest
 > kafka_exp/kafka_test_case/perf11-cs-5ww-012101.csv
 
 # check consumer offset
 $ kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --group test-consumer-group --zookeeper 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092
 
-
+$ ./kafka-manager -Dconfig.file=../conf/application.conf -Dhttp.port=9001
+-java-home /usr/lib/java/jdk1.8.0_66/
 
 
 #######################  other test ######################
