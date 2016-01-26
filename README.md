@@ -151,8 +151,12 @@ JMX_PORT=10101 kafka-server-start.sh
 jconsole 
    -Dcom.sun.management.jmxremote.port=6789
    -Dcom.sun.management.jmxremote.authenticate=false
+   -Dcom.sun.management.jmxremote.ssl=false
     service:jmx:remoting-jmx://172.28.128.22:9999
 ```
+
+```service:jmx:rmi:///jndi/rmi://localhost:9999/jmxrmi```
+
 ### 8.2 kafka-manager
 
 * ref [https://github.com/yahoo/kafka-manager]
@@ -167,11 +171,14 @@ jconsole
 #### 8.2.1 啟動kafka-manager
 
 ```bash
-java8 $ sudo ./kafka-manager \
--Dconfig.file=../conf/application.conf \
--Dhttp.port=9001 \
+java8 $ sudo ./kafka-manager -Dconfig.file=../conf/application.conf -Dhttp.port=9001 &
 -java-home /usr/lib/java/jdk1.8.0_66/
 ```
+記得CentOS 防火牆允許port 
+
+ref [http://www.centoscn.com/CentOS/help/2015/0208/4667.html]
+```firewall-cmd --zone=dmz --add-port=9001/tcp --permanent```
+```firewall-cmd --zone=dmz --add-port=8080/tcp --permanent```
 
 #### 8.2.2 開啟 broker 上的 JMX (查看流量 metrics)
 
