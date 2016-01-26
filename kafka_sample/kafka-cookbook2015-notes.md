@@ -160,7 +160,8 @@ log.retention.check.interval.ms=300000
 log.cleaner.enable=false
 #log.cleaner.threads=1
 #log.cleaner.backoff.ms=1
-#log.cleanup.policy=delete
+#log.cleanup.policy=delete,compact
+#log.cleanup.interval.mins=10
 
 ############################# Zookeeper #############################
 # server. e.g. "172.28.128.22:2181,172.28.128.23:2181,172.28.128.24:2181".
@@ -283,6 +284,10 @@ consumer.id=1
 ### 4: MANAGING KAFKA
 ####    Introduction
 ####    Consumer offset checker
+
+```> bin/kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --zookeeper localhost:2181 --group test-consumer-group```
+
+
 ####    Understanding dump log segments
 ####    Exporting the ZooKeeper offsets
 ####    Importing the ZooKeeper offsets
