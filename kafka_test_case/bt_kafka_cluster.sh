@@ -51,7 +51,9 @@ kafka-consumer-perf-test.sh --zookeeper 172.28.128.22:2181,172.28.128.23:2181,17
 # check consumer offset
 $ kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --group test-consumer-group --zookeeper 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092
 
-$ ./kafka-manager -Dconfig.file=../conf/application.conf -Dhttp.port=9001
+# start kafka-manager
+$ cd kafka-manager-1.3.0.4/bin
+$ sudo ./kafka-manager -Dconfig.file=../conf/application-z3.conf -Dhttp.port=9001 &
 -java-home /usr/lib/java/jdk1.8.0_66/
 
 
