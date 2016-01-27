@@ -1,39 +1,50 @@
-## 0: Enviroment setting
-
-### 0.1 UC3 exec
-    vagrant reload
-    vagrant up
-    vagrant ssh
-```bash
-$ bash storm_start.sh # 啟動 kafka + zookeeper + storm
-    zkServer.sh start
-    kafka-server-start.sh /realtime/kafka_2.11-0.9.0.0/config/server.properties &
-```
+## 0.目錄結構
 
 ```bash
-$ virtualenv --copy
-$ source source petrel_env/bin/activate # 啟動python虛擬環境
-$  sh petrel_exp2/run.sh  # 執行腳本
+├── jona_sample                     # jona script 主要學習 script
+│   ├── kafka_prac.py
+│   ├── kafka_unit_test_2.py
+│   ├── run.py
+│   └── storm_test.py
+├── kafka-exception                 # 錯誤事件記錄
+│   ├── kafka-produce-async.log
+│   ├── kafka-producer-perf-test.log
+│   └── kafka-topic-create.log
+├── kafka_notes                     # 實作筆記 (table content, notes 是各篇摘要)
+├── kafka-properties                # 設定概要 (broker,producer,consumer)
+│   ├── consumer.properties
+│   ├── producer.properties
+│   ├── server.properties
+│   ├── server-z3-b5-p3.properties
+│   ├── server-z3-b6-p3.properties
+│   └── server-z3-b7-p3.properties
+├── kafka_test_case                 # 測試案例
+│   ├── bt_kafka_cluster.sh
+│   ├── kafka-consumer-perf-test.conf
+│   ├── kafka_group1_consumer2.sh
+│   ├── kafka-producer-perf-test.conf
+│   ├── kafka_sample_properties.sh
+│   ├── kafka_topic1_rs1_p1.sh
+│   ├── kafka_unit_test_2.py
+│   ├── perftest-10w-raws           ## 10w筆測試
+│   ├── perftest5kw-raws            ## 5kw筆測試
+│   ├── test_kafka_cluster.sh
+│   ├── topic-zBPR-3311.sh
+│   └── zk_single_node_cluster.sh
+├── pykafka-toolbox                 # 參考pykafka如何設定properties
+│   ├── kafka_tools.py
+│   └── kafka_tools.pyc
+├── test011401                      # 放置 test script
+│   ├── kafka_consumer2.py
+│   ├── kafka_consumer.py
+│   └── kafka_producer.py
+├── unit_test
+│   ├── kafka_unit_test_2.py
+│   └── kafka_unit_test.py
+├── kafka_producer.py
+├── kafka_consumer.py
+└── README.md           # 此repo概要
 ```
-
-#### 0.2 Kafka test
-
-#### 0.3 env
-    .jmx script
-    Ref [https://blazemeter.com/blog/building-jms-testing-plan-apache-jmeter]
-    Ref [http://www.technix.in/load-testing-apache-kafka-using-kafkameter/]
-    Ref [http://liveramp.com/engineering/kafka-0-8-producer-performance-2/]
-
-#### 0.4 params
-    broker
-    partition
-    producer
-    consumer
-
-### 0.5 exam
-$ jps #> kafka ?
-
------
 
 ## 1.initialize kafka
     replica 相當於 rs
