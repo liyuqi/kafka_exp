@@ -2,16 +2,9 @@
 
 ```bash
 ├── jona_sample                     # jona script 主要學習 script
-│   ├── kafka_prac.py
-│   ├── kafka_unit_test_2.py
-│   ├── run.py
-│   └── storm_test.py
-├── kafka-exception                 # 錯誤事件記錄
-│   ├── kafka-produce-async.log
-│   ├── kafka-producer-perf-test.log
-│   └── kafka-topic-create.log
-├── kafka_notes                     # 實作筆記 (table content, notes 是各篇摘要)
-├── kafka-properties                # 設定概要 (broker,producer,consumer)
+├── kafka-exception                 # 錯誤事件記錄 (*.log)
+├── kafka_notes                     # 實作筆記 (table content 是目錄, notes 是各篇摘要)
+├── kafka-properties                # 設定概要 (broker,producer,consumer .properties)
 │   ├── consumer.properties
 │   ├── producer.properties
 │   ├── server.properties
@@ -19,23 +12,13 @@
 │   ├── server-z3-b6-p3.properties
 │   └── server-z3-b7-p3.properties
 ├── kafka_test_case                 # 測試案例
-│   ├── bt_kafka_cluster.sh
-│   ├── kafka-consumer-perf-test.conf
-│   ├── kafka_group1_consumer2.sh
-│   ├── kafka-producer-perf-test.conf
-│   ├── kafka_sample_properties.sh
+│   ├── bt_kafka_cluster.sh             ## *201601 cluster測試*
 │   ├── kafka_topic1_rs1_p1.sh
 │   ├── kafka_unit_test_2.py
 │   ├── perftest-10w-raws           ## 10w筆測試
 │   ├── perftest5kw-raws            ## 5kw筆測試
-│   ├── test_kafka_cluster.sh
-│   ├── topic-zBPR-3311.sh
-│   └── zk_single_node_cluster.sh
-├── pykafka-toolbox                 # 參考pykafka如何設定properties
-│   ├── kafka_tools.py
-│   └── kafka_tools.pyc
+│   └── test_kafka_cluster.sh           ## *201601 本機測試*
 ├── test011401                      # 放置 test script
-│   ├── kafka_consumer2.py
 │   ├── kafka_consumer.py
 │   └── kafka_producer.py
 ├── unit_test
@@ -178,6 +161,7 @@ jconsole
 * 查看 broker
 * 建立 topic
 * 設定 topic 的 rs, partition
+* 刪除 topic
 
 #### 8.2.1 啟動kafka-manager
 
@@ -188,8 +172,8 @@ java8 $ sudo ./kafka-manager -Dconfig.file=../conf/application.conf -Dhttp.port=
 記得CentOS 防火牆允許port 
 
 ref [http://www.centoscn.com/CentOS/help/2015/0208/4667.html]
-```firewall-cmd --zone=dmz --add-port=9001/tcp --permanent```
-```firewall-cmd --zone=dmz --add-port=8080/tcp --permanent```
+```firewall-cmd --zone=public --add-port=9001/tcp --permanent```
+```firewall-cmd --zone=public --add-port=8080/tcp --permanent```
 
 #### 8.2.2 開啟 broker 上的 JMX (查看流量 metrics)
 
