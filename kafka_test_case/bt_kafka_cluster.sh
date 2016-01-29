@@ -31,7 +31,7 @@ kafka-topics.sh --describe --zookeeper 172.28.128.22:2181,172.28.128.23:2181,172
 
 
 # produce
-$ kafka-console-producer.sh --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 --topic kafkatest
+$ JMX_PORT=10102 kafka-console-producer.sh --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 --topic kafkatest
 $ kafka-console-producer.sh --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 --topic kafkatest < file
 
 # consume
@@ -42,14 +42,25 @@ $ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic kafkatest 
 
 # perftest
 kafka-producer-perf-test.sh --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092
-kafka-producer-perf-test.sh --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 --messages 10000000 --threads 1 --message-size 300 -compression-codec 0 --topic ktest
+kafka-producer-perf-test.sh --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 --messages 100000 --threads 1 --message-size 200 -compression-codec 0 --topic ktest
 kafka-producer-perf-test.sh --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 --messages 50000000 --threads 8 --message-size 100 --batch-size 100 --compression-codec 0 --topic perf11
 > kafka_exp/kafka_test_case/perf11-pd-5ww-012101.csv
 kafka-consumer-perf-test.sh --zookeeper 172.28.128.22:2181,172.28.128.23:2181,172.28.128.24:2181 --messages 100000 --threads 1 --topic ktest
 > kafka_exp/kafka_test_case/perf11-cs-5ww-012101.csv
 
+# produce
+#         開始|      結束|     訊息size|                總size| 每秒?MB|                 總筆數|     每秒?筆
+#  start.time| end.time| message.size| total.data.sent.in.MB| MB.sec| total.data.sent.in.nMsg|   nMsg.sec
+#    02:10:30| 02:19:20|          100|               4768.37| 8.9941|                50000000| 94309.9061
+#
+# consume
+#         開始|      結束|    訊息size|                總size|  每秒?MB|                總筆數|       每秒?筆
+#  start.time| end.time| fetch.size|   data.consumed.in.MB|   MB.sec| data.consumed.in.nMsg|     nMsg.sec
+#    02:22:22| 02:22:29|    1048576|              277.9675| 137.8123|               2914700| 1445066.9311
+
+
 # check consumer offset
-$ kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --group test-consumer-group --zookeeper 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092
+$ kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --group cep_storm_1 --zookeeper 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092
 
 # start kafka-manager
 $ cd kafka-manager-1.3.0.4/bin
