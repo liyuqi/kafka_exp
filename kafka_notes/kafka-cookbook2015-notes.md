@@ -297,12 +297,27 @@ BROKER INFO
 0 -> BT2016Realtime03:9092
 ```
 
+
+```bash
+$ kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --zookeeper localhost:2181 --group test
+Group           Topic                          Pid Offset          logSize         Lag             Owner
+my-group        my-topic                       0   0               0               0               test_jkreps-mn-1394154511599-60744496-0
+my-group        my-topic                       1   0               0               0               test_jkreps-mn-1394154521217-1a0be913-0
+```
+
+
+
 參數
---group
---zookeeper
---topic
---broker-info
---help
+
+Option                                 | Description
+------                                 | -----------
+--broker-info                          | Print broker info
+--group                                | Consumer group.
+--help                                 | Print this message.
+--retry.backoff.ms <Integer>           | Retry back-off to use for failed offset queries. (default: 3000)
+--socket.timeout.ms <Integer>          | Socket timeout to use when querying for offsets. (default: 6000)
+--topic                                | Comma-separated list of consumer topics (all topics if absent).
+--zookeeper                            | ZooKeeper connect string. (default:localhost:2181)
 
 ####    Understanding dump log segments
 
@@ -336,9 +351,27 @@ offset: 4 position: 1420 isvalid: true payloadsize: 330 magic: 0 compresscodec: 
 ####    Using GetOffsetShell
 ####    Using the JMX tool
 
-```bash
-$ bin/kafka-run-class.sh kafka.tools.JmxTool --jmx-url service:jmx:rmi:///jndi/rmi://127.0.0.1:9999/jmxrmi
-```
+啟動jconsole
+
+`> bin/kafka-run-class.sh	kafka.tools.JmxTool --jmx-url service:jmx:rmi:///jndi/rmi://127.0.0.1:9999/jmxrmi`
+
+Option                                  |Description
+------                                  |-----------
+--attributes <name>                     |The whitelist of attributes to query.
+                                        |  This is a comma-separated list. 
+                                        |  If no attributes are specified all objects will be queried.
+--date-format <format>                  |The date format to use for formatting the time field. See java.text.
+                                        |  SimpleDateFormat for options.
+--help                                  |Print usage information.
+--jmx-url <service-url>                 |The url to connect to to poll JMX data. 
+                                        |  See Oracle javadoc for
+                                        |  JMXServiceURL for details. (default: service:jmx:rmi:///jndi/rmi://:9999/jmxrmi)
+--object-name <name>                    |A JMX object name to use as a query.
+                                        |  This can contain wild cards, and this option can be given multiple times to specify more than one query. 
+                                        |  If no objects are specified all objects will be queried.
+--reporting-interval <Integer: ms>      |Interval in MS with which to poll jmx stats. (default: 2000)
+
+
 
 ####    Using the Kafka migration tool
 ####    The MirrorMaker tool
@@ -362,6 +395,27 @@ $ bin/kafka-run-class.sh kafka.tools.StateChangeLogMerger --log-regex	/tmp/state
 --partitions
 --start-time
 --topic
+
+Option                                  Description
+------                                  -----------
+--end-time <end timestamp in the        The latest timestamp of state change
+  format java.text.                       log entries to be merged (default:
+  SimpleDateFormat@f17a63e7>              9999-12-31 23:59:59,999)
+--logs <file1,file2,...>                Comma separated list of state change
+                                          logs or a regex for the log file
+                                          names
+--logs-regex <for example: /tmp/state-  Regex to match the state change log
+  change.log*>                            files to be merged
+--partitions <0,1,2,...>                Comma separated list of partition ids
+                                          whose state change logs should be
+                                          merged
+--start-time <start timestamp in the    The earliest timestamp of state change
+  format java.text.                       log entries to be merged (default:
+  SimpleDateFormat@f17a63e7>              0000-00-00 00:00:00,000)
+--topic <topic>                         The topic whose state change logs
+                                          should be merged
+
+
 
 ####    Updating offsets in Zookeeper
 
@@ -389,6 +443,9 @@ $ bin/kafka-run-class.sh kafka.tools.StateChangeLogMerger --log-regex	/tmp/state
 ####    Expanding clusters
 ####    Increasing the replication factor
 ####    Checking the consumer position
+
+
+
 ####    Decommissioning brokers
 
 ### 7: INTEGRATING KAFKA WITH THIRD-PARTY PLATFORMS
