@@ -21,35 +21,27 @@ kafka-server-stop.sh ~/kafka_exp/kafka-properties/server-z3-b2-p3.properties
 
 kafka-topics.sh --list --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data
 kafka-topics.sh --list --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data
-kafka-topics.sh --describe --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --topic tt0206
-kafka-topics.sh --describe --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --topic test02
+kafka-topics.sh --describe --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --topic kafkatest
+kafka-topics.sh --describe --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --topic kafkatest
 
 
 kafka-topics.sh --create --zookeeper zks1:2181,zks2:2181,zks3:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --partitions 6 --replication-factor 1 --topic kafkatest
-kafka-topics.sh --create --zookeeper 172.28.128.22:2181,172.28.128.23:2181,172.28.128.24:2181 --partitions 1 --replication-factor 1 --topic cep_storm
+kafka-topics.sh --create --zookeeper zks1:2181,zks2:2181,zks3:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --partitions 6 --replication-factor 1 --topic kafkatest
 
-kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/datazks1:2181,zks2:2181,zks3:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --partitions 1 --replication-factor 1 --topic perf11
-kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --partitions 3 --replication-factor 1 --topic perf31
-kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --partitions 5 --replication-factor 1 --topic perf51
-kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --partitions 7 --replication-factor 1 --topic perf71
-kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --partitions 9 --replication-factor 1 --topic perf91
-kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --partitions 2 --replication-factor 1 --topic perf21
-kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --partitions 4 --replication-factor 1 --topic perf41
-kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --partitions 6 --replication-factor 1 --topic perf61
-kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --partitions 8 --replication-factor 1 --topic perf81
+kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data/root/zookeeper-3.4.6/zookeeperdatadir/data --topic ktest
+kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data/root/zookeeper-3.4.6/zookeeperdatadir/data --topic ktest
 #kafka-topics.sh --alter --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --topic cep_storm --config replication-factor=1,partitions=3
 #kafka-topics.sh --delete --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --topic cep_storm
-kafka-topics.sh --describe --zookeeper 172.28.128.22:2181,172.28.128.23:2181,172.28.128.24:2181 --topic cep_storm
 
 
 # produce
 $ JMX_PORT=10102 kafka-console-producer.sh --broker-list 172.17.24.231:19091,172.17.24.231:19092,172.17.24.232:19093,172.17.24.232:19094,172.17.24.233:19095,172.17.24.233:19096 --topic kafkatest
-$ JMX_PORT=10102 kafka-console-producer.sh --broker-list bt231:19091,bt231:19092,bt232:19093,bt232:19094,bt233:19095,bt233:19096 --topic kafkatest
-$ kafka-console-producer.sh --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 --topic kafkatest < file
+$ JMX_PORT=10102 kafka-console-producer.sh --broker-list 172.17.24.231:19091,172.17.24.231:19092,172.17.24.232:19093,172.17.24.232:19094,172.17.24.233:19095,172.17.24.233:19096 --topic kafkatest
+$ kafka-console-producer.sh --broker-list 172.17.24.231:19091,172.17.24.231:19092,172.17.24.232:19093,172.17.24.232:19094,172.17.24.233:19095,172.17.24.233:19096 --topic kafkatest < file
 
 # consume
-$ kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatest
-$ kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafkatest --from-beginning
+$ kafka-console-consumer.sh --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --topic kafkatest
+$ kafka-console-consumer.sh --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --topic kafkatest --from-beginning
 $ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic kafkatest --new-consumer --consumer.config consumer.properties
 
 
@@ -58,7 +50,7 @@ kafka-producer-perf-test.sh --broker-list 172.17.24.231:19091,172.17.24.231:1909
 kafka-producer-perf-test.sh --broker-list 172.17.24.231:19091,172.17.24.231:19092,172.17.24.232:19093,172.17.24.232:19094,172.17.24.233:19095,172.17.24.233:19096 --messages 100000 --threads 1 --message-size 200 -compression-codec 0 --topic kafkatest
 kafka-producer-perf-test.sh --broker-list 172.17.24.231:19091,172.17.24.231:19092,172.17.24.232:19093,172.17.24.232:19094,172.17.24.233:19095,172.17.24.233:19096 --messages 50000000 --threads 8 --message-size 100 --batch-size 100 --compression-codec 0 --topic kafkatest
 > kafka_exp/kafka_test_case/perf11-pd-5ww-012101.csv
-kafka-consumer-perf-test.sh --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181/root/zookeeper-3.4.6/zookeeperdatadir/data --messages 100000 --threads 1 --topic ktest
+kafka-consumer-perf-test.sh --zookeeper 172.17.24.231:2181,172.17.24.232:2181,172.17.24.233:2181 --messages 100000 --threads 1 --topic kafkatest
 > kafka_exp/kafka_test_case/perf11-cs-5ww-012101.csv
 
 # produce
@@ -82,23 +74,5 @@ $ sudo ./kafka-manager -Dconfig.file=../conf/application-z3.conf -Dhttp.port=900
 
 
 #######################  other test ######################
-
-$ kafka-run-class.sh kafka.tools.ReplayLogProducer --sync --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 --inputtopic kafk       atest --outputtopic ktest --zookeeper 172.28.128.22:2181,172.28.128.23:2181,172.28.128.24:2181
-[2016-01-21 06:46:38,844] ERROR consumer thread timing out (kafka.tools.ReplayLogProducer$ZKConsumerThread)
-kafka.consumer.ConsumerTimeoutException
-        at kafka.consumer.ConsumerIterator.makeNext(ConsumerIterator.scala:69)
-        at kafka.consumer.ConsumerIterator.makeNext(ConsumerIterator.scala:33)
-        at kafka.utils.IteratorTemplate.maybeComputeNext(IteratorTemplate.scala:66)
-        at kafka.utils.IteratorTemplate.hasNext(IteratorTemplate.scala:58)
-        at scala.collection.Iterator$class.foreach(Iterator.scala:750)
-        at kafka.utils.IteratorTemplate.foreach(IteratorTemplate.scala:32)
-        at scala.collection.IterableLike$class.foreach(IterableLike.scala:72)
-        at kafka.consumer.KafkaStream.foreach(KafkaStream.scala:25)
-        at kafka.tools.ReplayLogProducer$ZKConsumerThread.run(ReplayLogProducer.scala:140)
-
-$ kafka-run-class.sh kafka.tools.SimpleConsumerShell --broker-list 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 --max-messages 10 --offset -2 --partition 3 --printoffsets --topic kafkatest
-
-
-
 
 
