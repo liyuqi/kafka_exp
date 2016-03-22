@@ -361,3 +361,41 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+'''
+python kafka_tools.py -h
+usage: kafka_tools.py [-h] [-b HOST]
+                      {consume_topic,desc_topic,print_consumer_lag,print_offsets,print_topics,reset_offsets}
+                      ...
+
+Tools for Kafka.
+
+positional arguments:
+  {consume_topic,desc_topic,print_consumer_lag,print_offsets,print_topics,reset_offsets}
+                        Commands
+    consume_topic       Dump messages for a topic to a file or stdout.
+    desc_topic          Print detailed info for a topic.
+    print_consumer_lag  Get consumer lag for a topic.
+    print_offsets       Fetch offsets for a topic/consumer group
+    print_topics        Print information about all topics in the cluster.
+    reset_offsets       Reset offsets for a topic/consumer group
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -b HOST, --broker HOST
+                        host:port of any Kafka broker. [default:
+                        localhost:9092]
+'''
+
+'''
+ python kafka_tools.py -b 172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092 print_topics
+Topic       Partitions    Replication
+---------  ------------  -------------
+perf11          1              0
+perf31          3              0
+perf71          7              0
+perf51          5              0
+pyperf11        3              0
+cep_storm       3              0
+perf91          9              0
+'''

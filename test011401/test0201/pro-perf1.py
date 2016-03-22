@@ -14,7 +14,9 @@ import logging
 from pykafka import KafkaClient
 from datetime import date,datetime
 
-client = KafkaClient(hosts="172.28.128.217:9092,172.28.128.218:9092,172.28.128.219:9092" )
+
+
+client = KafkaClient(hosts="172.28.128.22:9092,172.28.128.23:9092,172.28.128.24:9092" )
 
 print(client.topics)
 topic = client.topics['kafkatest']
@@ -23,7 +25,7 @@ topic = client.topics['kafkatest']
 logger = logging.getLogger('pykafka.cluster')
 logger.setLevel(logging.DEBUG)
 
-nMsg = 10**4
+f = file(filename)
 
 t0 = time.time()
 '''同步producer'''

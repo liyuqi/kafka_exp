@@ -8,7 +8,7 @@
 # --batch-size
 # --ompression --topic
 
-import sys
+import sys, getopt
 import time
 import logging
 from pykafka import KafkaClient
@@ -23,9 +23,22 @@ topic = client.topics['kafkatest']
 logger = logging.getLogger('pykafka.cluster')
 logger.setLevel(logging.DEBUG)
 
-nMsg = 10**4
+try:
+    opts, args = getopt.getopt(argv,"i:",["messages="])
+except getopt.GetoptError:
 
-t0 = time.time()
+for opt, arg in opts:
+    if opt in ("--messages"):
+        messages=arg
+    elif opt in ("--partition"):
+        partition=arg
+    elif opt in ("--replication-factor"):
+        rs=arg
+
+# messages = getopt.getopt(argv,)
+# messages = 10**4
+
+# t0 = time.time()
 '''同步producer'''
 '''
 print datetime.now().strftime("%Y%m%d %H:%M:%S.%f")
@@ -44,7 +57,7 @@ with topic.get_sync_producer(
     # sync=True,
     delivery_reports=True
 ) as producer:
-    for i in range(nMsg):
+    for i in range(messages):
         producer.produce(str('85,0,40187421,466977200122266,2015-11-05 01:59:55,3587160516678701,886989305765,103.2.218.49,103.2.216.227'))
         # print("before #",i)
         # producer.produce(datetime.now().strftime("%Y%m%d %H:%M:%S.%f")+' test message '+str(i))
@@ -56,15 +69,15 @@ with topic.get_sync_producer(
 '''
 
 '''非同步producer'''
-
+t0 = time.time()
 with topic.get_producer(delivery_reports=True) as producer:
     count = 0
-    exception_count = 0
+    # exception_count = 0
     while True:
         count += 1
         producer.produce(str(count)+"85,0,40187421,466977200122266,2015-11-05 01:59:55,3587160516678701,886989305765,103.2.218.49,103.2.216.227",
             partition_key='{}'.format(count))
-        if count % 10**3 == 0:  # adjust this or bring lots of RAM ;)
+        if count % messages == 0:  # adjust this or bring lots of RAM ;)
             while True:
                 try:
                     msg, exc = producer.get_delivery_report(block=False)
@@ -79,7 +92,8 @@ with topic.get_producer(delivery_reports=True) as producer:
                     # exception_count +=1
                     # print datetime.now().strftime("%Y%m%d %H:%M:%S.%f"),' e:', exception_count, ' c:', count
                     t1 = time.time()
-                    print 'produce time:{}'.format((t1-t0))
+                    # print 'produce time ,nMsg.sec'
+                    print '{},{}'.format((t1-t0),count/(t1-t0))
                     break
 
 # Segmentation fault (core dumped)

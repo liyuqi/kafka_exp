@@ -31,7 +31,7 @@ consumer = topic.get_balanced_consumer(
     # offsets_channel_backoff_ms=1000,
     # offsets_commit_max_retries=5,
     # auto_offset_reset=-2,
-    # consumer_timeout_ms=-1,
+    consumer_timeout_ms=-1,
     # rebalance_max_retries=5,
     # rebalance_backoff_ms=2000,
     # zookeeper_connection_timeout_ms=6000,
@@ -42,7 +42,7 @@ consumer = topic.get_balanced_consumer(
     # use_rdkafka=False,
     consumer_group="g99",
     zookeeper_connect='localhost:2181',
-    consumer_timeout_ms=500,
+    # consumer_timeout_ms=500,
     auto_commit_enable=False
 )  # 建立consumer
 

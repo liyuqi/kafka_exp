@@ -4,8 +4,8 @@
 Table of Contents
 
 ### 1: INITIATING KAFKA
-####    Introduction
-####    Setting up multiple Kafka brokers
+####    1.1 Introduction
+####    1.2 Setting up multiple Kafka brokers
 
 編輯server.properties
 
@@ -33,7 +33,7 @@ zookeeper=172.28.128.22:2181,172.28.128.23:2181,172.28.128.24:2181
 ```> bin/kafka-server-start.sh	config/server-1.properties	&```
 
 ```> bin/kafka-server-start.sh	config/server-2.properties	&```
-####    Creating topics
+####    1.3 Creating topics
 
 建立topic
 
@@ -58,7 +58,7 @@ Topic:	kafkatest		Partition:	0		Leader:	0		Replicas:	0			Isr:	0
 Topic:	kafkatest		Partition:	0		Leader:	2		Replicas:	2,0,1		Isr:	2,0,1
 ```
 
-####    Sending some messages from the console
+####    1.4 Sending some messages from the console
 
 新增message (produce)
 
@@ -78,7 +78,7 @@ param   參數說明             |description        |sample
 --message-send-max-retries  |broker無回應時,重傳數
 --retry-backoff-ms          |leader重選的初始時間
 
-####    Consuming from the console
+####    1.5 Consuming from the console
 
 消費message (consume)
 
@@ -97,13 +97,13 @@ param   參數說明p81          |description    |sample
 --skip-message-on-error     |               |default:直接skip
 
 ### 2: CONFIGURING BROKERS
-####    Introduction
-####    Configuring the basic settings
-####    Configuring threads and performance
-####    Configuring the log settings
-####    Configuring the replica settings
-####    Configuring the ZooKeeper settings
-####    Configuring other miscellaneous parameters
+####    2.1 Introduction
+####    2.2 Configuring the basic settings
+####    2.3 Configuring threads and performance
+####    2.4 Configuring the log settings
+####    2.5 Configuring the replica settings
+####    2.6 Configuring the ZooKeeper settings
+####    2.7 Configuring other miscellaneous parameters
 編輯server.properties
 
 ```bash
@@ -194,12 +194,12 @@ zookeeper.connection.timeout.ms=6000
 ```
 
 ### 3: CONFIGURING A PRODUCER AND CONSUMER
-####    Introduction
+####    3.1 Introduction
 
 benchmark ref [https://gist.github.com/jkreps/c7ddb4041ef62a900e6c]
 
-####    Configuring the basic settings for producer
-####    Configuring the thread and performance for producer
+####    3.2 Configuring the basic settings for producer
+####    3.3 Configuring the thread and performance for producer
 
 編輯producer.properties
 
@@ -235,11 +235,11 @@ serializer.class=kafka.serializer.DefaultEncoder
 #client.id=my_client
 ```
 
-####    Configuring the basic settings for consumer
-####    Configuring the thread and performance for consumer
-####    Configuring the log settings for consumer
-####    Configuring the ZooKeeper settings for consumer
-####    Other configurations for consumer
+####    3.1 Configuring the basic settings for consumer
+####    3.2 Configuring the thread and performance for consumer
+####    3.3 Configuring the log settings for consumer
+####    3.4 Configuring the ZooKeeper settings for consumer
+####    3.5 Other configurations for consumer
 
 編輯producer.properties
 
@@ -282,8 +282,8 @@ consumer.id=1
 ```
 
 ### 4: MANAGING KAFKA
-####    Introduction
-####    Consumer offset checker
+####    4.1 Introduction
+####    4.2 Consumer offset checker
 
 ```bash
 $ kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --broker-info --group cep_group_1 --topic cep_storm --zookeeper 172.28.128.22:2181,172.28.128.23:2181,172.28.128.24:2181
@@ -305,9 +305,7 @@ my-group        my-topic                       0   0               0            
 my-group        my-topic                       1   0               0               0               test_jkreps-mn-1394154521217-1a0be913-0
 ```
 
-
-
-參數
+ConsumerOffsetChecker
 
 Option                                 | Description
 ------                                 | -----------
@@ -319,7 +317,28 @@ Option                                 | Description
 --topic                                | Comma-separated list of consumer topics (all topics if absent).
 --zookeeper                            | ZooKeeper connect string. (default:localhost:2181)
 
-####    Understanding dump log segments
+
+kafka-run-class.sh kafka.tools.GetOffsetShell
+
+
+Option                                 | Description
+------                                 | -----------
+--broker-list <hostname:port,...,      | REQUIRED: The list of hostname and
+  hostname:port>                       |   port of the server to connect to.
+--max-wait-ms <Integer: ms>            | The max amount of time each fetch
+                                       |   request waits. (default: 1000)
+--offsets <Integer: count>             | number of offsets returned (default: 1)
+--partitions <partition ids>           | comma separated list of partition ids.
+                                       |   If not specified, it will find
+                                       |   offsets for all partitions (default:
+                                       |   )
+--time <Long: timestamp/-1(latest)/-2  | timestamp of the offsets before that
+  (earliest)>|
+--topic <topic>                        | REQUIRED: The topic to get offset from.
+
+
+
+####    4.3 Understanding dump log segments
 
 ```bash
 $ kafka-run-class.sh kafka.tools.DumpLogSegments --deep-iteration -fil /tmp/kafka-logs/cep_storm-1/00000000000000000000.log | head
@@ -338,7 +357,34 @@ offset: 4 position: 1420 isvalid: true payloadsize: 330 magic: 0 compresscodec: 
 --print-data-log
 --verify-index-only
 
-####    Exporting the ZooKeeper offsets
+
+Option                                 | Description
+------                                 | -----------
+--deep-iteration                       | if set, uses deep instead of shallow
+                                       |   iteration
+--files <file1, file2, ...>            | REQUIRED: The comma separated list of
+                                       |   data and index log files to be dumped
+--key-decoder-class                    | if set, used to deserialize the keys.
+                                       |   This class should implement kafka.
+                                       |   serializer.Decoder trait. Custom jar
+                                       |   should be available in kafka/libs
+                                       |   directory. (default: kafka.
+                                       |   serializer.StringDecoder)
+--max-message-size <Integer: size>     | Size of largest message. (default:
+                                       |   5242880)
+--print-data-log                       | if set, printing the messages content
+                                       |   when dumping data logs
+--value-decoder-class                  | if set, used to deserialize the
+                                       |   messages. This class should
+                                       |   implement kafka.serializer.Decoder
+                                       |   trait. Custom jar should be
+                                       |   available in kafka/libs directory.
+                                       |   (default: kafka.serializer.
+                                       |   StringDecoder)
+--verify-index-only                    | if set, just verify the index log
+                                       |   without printing its content
+
+####    4.4 Exporting the ZooKeeper offsets
 
 參數
 
@@ -347,9 +393,9 @@ offset: 4 position: 1420 isvalid: true payloadsize: 330 magic: 0 compresscodec: 
 --help
 --output
 
-####    Importing the ZooKeeper offsets
-####    Using GetOffsetShell
-####    Using the JMX tool
+####    4.5 Importing the ZooKeeper offsets
+####    4.6 Using GetOffsetShell
+####    4.7 Using the JMX tool
 
 啟動jconsole
 
@@ -373,16 +419,63 @@ Option                                  |Description
 
 
 
-####    Using the Kafka migration tool
-####    The MirrorMaker tool
+####    4.8 Using the Kafka migration tool
+####    4.9 The MirrorMaker tool
 
 ```bash
 $ bin/kafka-run-class.sh kafka.tools.MirrorMaker --consumer.config config/consumer.config --producer.config config/producer.config -whitelist mytesttopic
 ```
 
-####    Replay Log Producer
-####    Simple Consumer Shell
-####    State Change Log Merger
+Option                                 | Description
+------                                 | -----------
+--blacklist <Java regex (String)>      | Blacklist of topics to mirror.
+--consumer.config <config file>        | Consumer config to consume from a
+                                       |   source cluster. You may specify
+                                       |   multiple of these.
+--help                                 | Print this message.
+--new.producer                         | Use the new producer implementation.
+--num.producers <Integer: Number of    | Number of producer instances (default:
+  producers>                           |   1)
+--num.streams <Integer: Number of      | Number of consumption streams.
+  threads>                             |   (default: 1)
+--producer.config <config file>        | Embedded producer config.
+--queue.size <Integer: Queue size in   | Number of messages that are buffered
+  terms of number of messages>         |   between the consumer and producer
+                                       |   (default: 10000)
+--whitelist <Java regex (String)>      | Whitelist of topics to mirror.
+
+####    4.10 Replay Log Producer
+
+`bin/kafka-run-class.sh kafka.tools.ReplayLogProducer`
+
+Option                                 | Description
+------                                 | -----------
+--broker-list <hostname:port>          | REQUIRED: the broker list must be
+                                       |   specified.
+--inputtopic <input-topic>             | REQUIRED: The topic to consume from.
+--messages <Integer: count>            | The number of messages to send.
+                                       |   (default: -1)
+--outputtopic <output-topic>           | REQUIRED: The topic to produce to
+--property <producer properties>       | A mechanism to pass properties in the
+                                       |   form key=value to the producer. This
+                                       |   allows the user to override producer
+                                       |   properties that are not exposed by
+                                       |   the existing command line arguments
+--reporting-interval <Integer: size>   | Interval at which to print progress
+                                       |   info. (default: 5000)
+--sync                                 | If set message send requests to the
+                                       |   brokers are synchronously, one at a
+                                       |   time as they arrive.
+--threads <Integer: threads>           | Number of sending threads. (default: 1)
+--zookeeper <zookeeper url>            | REQUIRED: The connection string for
+                                       |   the zookeeper connection in the form
+                                       |   host:port. Multiple URLS can be
+                                       |   given to allow fail-over. (default:
+                                       |   127.0.0.1:2181)
+
+
+####    4.11 Simple Consumer Shell
+####    4.12 State Change Log Merger
 
 ```bash
 $ bin/kafka-run-class.sh kafka.tools.StateChangeLogMerger --log-regex	/tmp/state-change.log* --partitions 0,1,2 --topic	statelog
@@ -417,36 +510,48 @@ Option                                  Description
 
 
 
-####    Updating offsets in Zookeeper
+####    4.13 Updating offsets in Zookeeper
 
 ```bash
 
 ```
 
-####    Verifying consumer rebalance
+####    4.14 Verifying consumer rebalance
 
 ### 5: INTEGRATING KAFKA WITH JAVA
-####    Introduction
-####    Writing a simple producer
-####    Writing a simple consumer
-####    Writing a high-level consumer
-####    *    Writing a producer with message partitioning
-####    Multithreaded consumers in Kafka
+####    5.1 Introduction
+####    5.2 Writing a simple producer
+####    5.3 Writing a simple consumer
+####    5.4 Writing a high-level consumer
+####    5.5 *    Writing a producer with message partitioning
+####    5.6 Multithreaded consumers in Kafka
 
 ### 6: OPERATING KAFKA
-####    Introduction
-####    *    Adding and removing topics
-####    Modifying topics
-####    *   Implementing a graceful shutdown
-####    Balancing leadership
-####    *   Mirroring data between Kafka clusters
-####    Expanding clusters
-####    Increasing the replication factor
-####    Checking the consumer position
+####    6.1 Introduction
+####    6.2*    Adding and removing topics
+####    6.3 Modifying topics
+####    6.4 Implementing a graceful shutdown
+
+`bin/kafka-server-stop.sh`
+
+broker 參數
+controlled.shutdown.enable=true
+
+####    6.5 Balancing leadership
+
+`bin/kafka-preferred-replica-election.sh`
+
+####    6.6 Mirroring data between Kafka clusters
+
+`bin/kafka-run-class.sh kafka.tools.MirrorMaker --consumer.config consumer.properties --producer.config producer.properties --whitelist testtopic`
+
+####    6.7 Expanding clusters
+####    6.8 Increasing the replication factor
+####    6.9 Checking the consumer position
 
 
 
-####    Decommissioning brokers
+####    6.10 Decommissioning brokers
 
 ### 7: INTEGRATING KAFKA WITH THIRD-PARTY PLATFORMS
 ####    Introduction
@@ -459,8 +564,8 @@ Option                                  Description
 ####    Integrating Elasticsearch with Kafka
 ####    Integrating SolrCloud with Kafka
 ### 8: MONITORING KAFKA
-####    Introduction
-####    Monitoring server stats
-####    Monitoring producer stats
+####    8.1 Introduction
+####    8.2 Monitoring server stats
+####    8.3 Monitoring producer stats
 
 -----

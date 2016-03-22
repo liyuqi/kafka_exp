@@ -36,15 +36,15 @@
 ###    5.6 Distribution
 ## 6. Operations
 ###    6.1 Basic Kafka Operations
-####        Adding and removing topics
-####        Modifying topics
-####        Graceful shutdown
-####        Balancing leadership
-####        Checking consumer position
-####        Mirroring data between clusters
-####        Expanding your cluster
-####        Decommissioning brokers
-####        Increasing replication factor
+####        6.1.1 Adding and removing topics
+####        6.1.2 Modifying topics
+####        6.1.3 Graceful shutdown
+####        6.1.4 Balancing leadership
+####        6.1.5 Checking consumer position
+####        6.1.6 Mirroring data between clusters
+####        6.1.7 Expanding your cluster
+####        6.1.8 Decommissioning brokers
+####        6.1.9 Increasing replication factor
 ###    6.2 Datacenters
 ###    6.3 Important Configs
 ####        Important Server Configs

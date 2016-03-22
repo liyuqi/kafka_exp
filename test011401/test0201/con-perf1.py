@@ -9,9 +9,10 @@ import logging
 logger = logging.getLogger('pykafka.cluster')
 logger.setLevel(logging.DEBUG)
 
-client = KafkaClient(hosts='172.28.128.217:9092,172.28.128.218:9092,172.28.128.219:9092')  # 建立kafka連線client
+# client = KafkaClient(hosts='172.28.128.217:9092,172.28.128.218:9092,172.28.128.219:9092')  # 建立kafka連線client
+client = KafkaClient(hosts='172.28.128.22:2181,172.28.128.23:2181,172.28.128.24:2181')  # 建立kafka連線client
 print("%s" % client.topics)  # 列出有哪些topic
-topic = client.topics['kafkatest']  # 取得指定的kafka_topic物件
+topic = client.topics['pyperf11']  # 取得指定的kafka_topic物件
 
 
 '''simple consumer'''
@@ -19,30 +20,30 @@ topic = client.topics['kafkatest']  # 取得指定的kafka_topic物件
 
 '''balanced consumer'''
 consumer = topic.get_balanced_consumer(
-    fetch_message_max_bytes=1048576,
-    num_consumer_fetchers=1,
-    auto_commit_interval_ms=60000,
-    queued_max_messages=2000,
-    fetch_min_bytes=1,
-    fetch_wait_max_ms=100,
-    offsets_channel_backoff_ms=1000,
-    offsets_commit_max_retries=5,
-    auto_offset_reset=-2,
-    consumer_timeout_ms=-1,
-    rebalance_max_retries=5,
-    rebalance_backoff_ms=2000,
-    zookeeper_connection_timeout_ms=6000,
+    # fetch_message_max_bytes=1048576,
+    # num_consumer_fetchers=1,
+    # auto_commit_interval_ms=60000,
+    # queued_max_messages=2000,
+    # fetch_min_bytes=1,
+    # fetch_wait_max_ms=100,
+    # offsets_channel_backoff_ms=1000,
+    # offsets_commit_max_retries=5,
+    # auto_offset_reset=-2,
+    # consumer_timeout_ms=-1,
+    # rebalance_max_retries=5,
+    # rebalance_backoff_ms=2000,
+    # zookeeper_connection_timeout_ms=6000,
     # zookeeper=None,
-    auto_start=True,
-    reset_offset_on_start=False,
-    post_rebalance_callback=None,
-    use_rdkafka=False,
+    # auto_start=True,
+    # reset_offset_on_start=False,
+    # post_rebalance_callback=None,
+    # use_rdkafka=False,
 
-    consumer_group="g2",
-    zookeeper_connect='172.28.128.217:2181,172.28.128.218:2181,172.28.128.219:2181',
-    consumer_timeout_ms=500,
+    consumer_group="pyperf",
+    zookeeper_connect='172.28.128.22:2181,172.28.128.23:2181,172.28.128.24:2181',
+    # consumer_timeout_ms=500,
     auto_commit_enable=True
-)  # 建立consumer
+)   # 建立consumer
 
 
 cursor = 0
@@ -63,7 +64,7 @@ for message in consumer:
         print "no more message"
         # break
     if cursor%10000 == 0:
-        print("consume #{0} .topic {} .pt {} .offset {} .key {} .value {}".format(cursor,message.offset, message.value))
+        print("consume #{0} .offset #{1} .value #{2}".format(cursor,message.offset, message.value))
 
     #if cursor >= 100000:
         # break
